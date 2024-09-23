@@ -18,22 +18,6 @@ process.on('uncaughtException', err => {
     process.exit(1);
 });
 
-process.on('unhandledRejection', err => {
-    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-    console.log(err.name, err.message);
-    server.close(() => {
-        process.exit(1);
-    });
-});
-
-mongoose.connect('mongodb+srv://muthurajmarvar8:m12345678@cluster0.uvtfdzz.mongodb.net/natours?retryWrites=true', {
-    dbName: "amazon",
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-}).then(() => console.log('DB CONNECTION SUCCESSFULL.'));
-
 app.post("/payments/create", async (req, res) => {
     const { total, receiverName, line1, city, pincode, country } = req.query;
     console.log("Payment Request Received BOOM!", total);
@@ -116,6 +100,22 @@ app.post("/orders/get", async (req, res) => {
 app.all('*', (req, res, next) => {
     next(new AppError(`Can\'t find ${req.originalUrl} on this server!`, 404));
 });
+
+process.on('unhandledRejection', err => {
+    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    server.close(() => {
+        process.exit(1);
+    });
+});
+
+mongoose.connect('mongodb+srv://muthurajmarvar8:m12345678@cluster0.uvtfdzz.mongodb.net/natours?retryWrites=true', {
+    dbName: "amazon",
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+}).then(() => console.log('DB CONNECTION SUCCESSFULL.'));
 
 function addOneDayAndFormat(dateStr) {
     // Parse the input date string to a Date object
