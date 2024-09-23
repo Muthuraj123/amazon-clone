@@ -112,8 +112,6 @@ process.on('unhandledRejection', err => {
 mongoose.connect('mongodb+srv://muthurajmarvar8:m12345678@cluster0.uvtfdzz.mongodb.net/natours?retryWrites=true', {
     dbName: "amazon",
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
     useUnifiedTopology: true
 }).then(() => console.log('DB CONNECTION SUCCESSFULL.'));
 
