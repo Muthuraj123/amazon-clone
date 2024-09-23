@@ -3,11 +3,14 @@ const cors = require("cors");
 const stripe = require("stripe")("sk_test_51J00fuSGUWY7RZxWsPcGWATIcV6U6iKkWgq4A5Ede0HWCtI4dfkTJYRerWf7m1YqKTuCthLdYWcUeftIgkq1IvNJ00XD7wgWVO");
 const mongoose = require('mongoose');
 const Order = require("./models/ordersModel");
+const xss = require('xss-clean');
 
 const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
+
+app.use(xss());
 
 process.on('uncaughtException', err => {
     console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
