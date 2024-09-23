@@ -111,6 +111,10 @@ app.post("/orders/get", async (req, res) => {
     }
 });
 
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can\'t find ${req.originalUrl} on this server!`, 404));
+});
+
 function addOneDayAndFormat(dateStr) {
     // Parse the input date string to a Date object
     const date = new Date(dateStr);
